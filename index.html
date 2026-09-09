@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KisanSetu AI</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f8f4;
+            color: #1f2937;
+        }
+
+        /* HEADER */
+        header {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #15803d;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 10%;
+            background: #eaf5e8;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .small-title {
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 55px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .description {
+            font-size: 19px;
+            line-height: 1.6;
+            max-width: 580px;
+            margin-bottom: 30px;
+            color: #4b5563;
+        }
+
+        button {
+            border: none;
+            padding: 15px 28px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #15803d;
+            color: white;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #166534;
+        }
+
+        /* HERO ICON */
+        .hero-icon {
+            width: 250px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+            font-size: 120px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            padding: 60px 8%;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            transition: 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h2 {
+            margin-bottom: 12px;
+            font-size: 21px;
+        }
+
+        .feature-card p {
+            line-height: 1.5;
+            color: #6b7280;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: white;
+            color: #6b7280;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 40px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 50px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            🌾 KisanSetu AI
+        </div>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Market</a>
+            <a href="#">Prediction</a>
+            <a href="#">Sell Produce</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="small-title">SMART FARMING • SMART SELLING</p>
+
+                <h1>
+                    Get the Best Price
+                    <br>
+                    for Your Produce
+                </h1>
+
+                <p class="description">
+                    KisanSetu AI helps farmers compare markets,
+                    predict prices and find better selling opportunities.
+                </p>
+
+                <button id="startButton">
+                    Get Started →
+                </button>
+            </div>
+
+            <div class="hero-icon">
+                🌾
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="icon">💰</div>
+                <h2>Best Market</h2>
+                <p>
+                    Find the market that can provide
+                    the best estimated net return.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h2>Market Prices</h2>
+                <p>
+                    Compare crop prices across
+                    different markets.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🤖</div>
+                <h2>AI Prediction</h2>
+                <p>
+                    Get AI-based price trends
+                    and predictions.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🛒</div>
+                <h2>Buyer Offers</h2>
+                <p>
+                    Connect with buyers and
+                    compare their offers.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            © 2026 KisanSetu AI | Empowering Farmers with Technology
+        </p>
+    </footer>
+
+    <script>
+        const startButton = document.getElementById("startButton");
+
+        startButton.addEventListener("click", function () {
+            alert("Welcome to KisanSetu AI! 🌾");
+        });
+    </script>
+</body>
+</html>
