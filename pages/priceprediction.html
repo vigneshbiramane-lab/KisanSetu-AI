@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KisanSetu AI - Price Prediction</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f8f5;
+            color: #1d2b3a;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 75px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #087f45;
+        }
+
+        .back-btn {
+            border: 1px solid #ddd;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .back-btn:hover {
+            background: #f1f7f2;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-title span {
+            color: #087f45;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .page-title h1 {
+            font-size: 38px;
+            margin-top: 10px;
+        }
+
+        .page-title p {
+            color: #667085;
+            margin-top: 10px;
+            font-size: 17px;
+        }
+
+        /* PREDICTION BOX */
+
+        .prediction-box {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+        }
+
+        .selection {
+            display: flex;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 30px;
+        }
+
+        .field {
+            flex: 1;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .field select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d7dce0;
+            border-radius: 9px;
+            font-size: 16px;
+            background: white;
+        }
+
+        .predict-btn {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 9px;
+            background: #087f45;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .predict-btn:hover {
+            background: #066b3a;
+        }
+
+        /* LOADING */
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667085;
+        }
+
+        /* RESULTS */
+
+        .result {
+            display: none;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .result-header h2 {
+            font-size: 25px;
+        }
+
+        .confidence {
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: #e7f6ed;
+            color: #087f45;
+            font-weight: bold;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            border: 1px solid #e4e8e5;
+            border-radius: 14px;
+            padding: 22px;
+            background: #fafcfb;
+        }
+
+        .card-title {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .prediction-card {
+            background: #eaf7ee;
+            border: 1px solid #b9dfc5;
+        }
+
+        .prediction-card .card-value {
+            color: #087f45;
+        }
+
+        /* TREND */
+
+        .trend-box {
+            margin-top: 22px;
+            padding: 22px;
+            border-radius: 14px;
+            background: #f7f9f8;
+        }
+
+        .trend {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .trend-rising {
+            color: #087f45;
+        }
+
+        .trend-falling {
+            color: #c0392b;
+        }
+
+        .trend-stable {
+            color: #667085;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fff8e6;
+            color: #795600;
+            font-size: 14px;
+        }
+
+        .error {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fff0f0;
+            color: #b42318;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            .selection {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .page-title h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🌾 KisanSetu AI
+        </div>
+
+        <button
+            class="back-btn"
+            onclick="goHome()"
+        >
+            ← Back to Dashboard
+        </button>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- TITLE -->
+
+        <div class="page-title">
+
+            <span>
+                ARTIFICIAL INTELLIGENCE
+            </span>
+
+            <h1>
+                🤖 AI Price Prediction
+            </h1>
+
+            <p>
+                Estimate future crop prices using recent
+                market price trends.
+            </p>
+
+        </div>
+
+
+
+        <!-- PREDICTION BOX -->
+
+        <section class="prediction-box">
+
+
+            <!-- CROP SELECTION -->
+
+            <div class="selection">
+
+                <div class="field">
+
+                    <label for="crop">
+                        Select Crop
+                    </label>
+
+                    <select id="crop">
+
+                        <option value="Onion">
+                            🧅 Onion
+                        </option>
+
+                        <option value="Tomato">
+                            🍅 Tomato
+                        </option>
+
+                        <option value="Potato">
+                            🥔 Potato
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="predict-btn"
+                    onclick="getPrediction()"
+                >
+                    🔮 Predict Price
+                </button>
+
+            </div>
+
+
+
+            <!-- LOADING -->
+
+            <div
+                id="loading"
+                class="loading"
+                style="display:none;"
+            >
+
+                ⏳ Getting prediction from KisanSetu AI...
+
+            </div>
+
+
+
+            <!-- ERROR -->
+
+            <div
+                id="error"
+                class="error"
+            ></div>
+
+
+
+            <!-- RESULT -->
+
+            <div
+                id="result"
+                class="result"
+            >
+
+
+                <div class="result-header">
+
+                    <h2 id="resultCrop">
+                        Onion Prediction
+                    </h2>
+
+                    <span
+                        id="confidence"
+                        class="confidence"
+                    >
+                        High Confidence
+                    </span>
+
+                </div>
+
+
+
+                <!-- PRICE CARDS -->
+
+                <div class="cards">
+
+
+                    <!-- CURRENT PRICE -->
+
+                    <div class="card">
+
+                        <div class="card-title">
+                            Current Price
+                        </div>
+
+                        <div
+                            id="currentPrice"
+                            class="card-value"
+                        >
+                            ₹0
+                        </div>
+
+                        <div>
+                            per quintal
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AVERAGE PRICE -->
+
+                    <div class="card">
+
+                        <div class="card-title">
+                            Recent Average
+                        </div>
+
+                        <div
+                            id="averagePrice"
+                            class="card-value"
+                        >
+                            ₹0
+                        </div>
+
+                        <div>
+                            per quintal
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PREDICTED PRICE -->
+
+                    <div class="card prediction-card">
+
+                        <div class="card-title">
+                            AI Predicted Price
+                        </div>
+
+                        <div
+                            id="predictedPrice"
+                            class="card-value"
+                        >
+                            ₹0
+                        </div>
+
+                        <div>
+                            per quintal
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- TREND -->
+
+                <div class="trend-box">
+
+                    <div class="card-title">
+                        Market Trend
+                    </div>
+
+                    <div
+                        id="trend"
+                        class="trend"
+                    >
+                        Loading...
+                    </div>
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="predictionMessage"
+                    class="message"
+                >
+                    Prototype prediction based on recent
+                    historical price trend.
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const API_URL =
+            "http://127.0.0.1:5000";
+
+
+        // ==========================================
+        // GO HOME
+        // ==========================================
+
+        function goHome() {
+
+            window.location.href =
+                "../index.html";
+
+        }
+
+
+
+        // ==========================================
+        // FORMAT RUPEES
+        // ==========================================
+
+        function formatRupees(value) {
+
+            return "₹" +
+                Number(value).toLocaleString("en-IN");
+
+        }
+
+
+
+        // ==========================================
+        // GET AI PREDICTION
+        // ==========================================
+
+        async function getPrediction() {
+
+
+            const crop =
+                document.getElementById("crop").value;
+
+
+            const loading =
+                document.getElementById("loading");
+
+
+            const result =
+                document.getElementById("result");
+
+
+            const error =
+                document.getElementById("error");
+
+
+            // Reset screen
+
+            loading.style.display = "block";
+
+            result.style.display = "none";
+
+            error.style.display = "none";
+
+
+            try {
+
+
+                // Connect to Flask backend
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/predict?crop=${encodeURIComponent(crop)}`
+                    );
+
+
+                if (!response.ok) {
+
+                    const errorData =
+                        await response.json();
+
+                    throw new Error(
+                        errorData.message ||
+                        "Prediction request failed."
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "AI prediction received:",
+                    data
+                );
+
+
+                // ==================================
+                // DISPLAY RESULT
+                // ==================================
+
+                document.getElementById(
+                    "resultCrop"
+                ).textContent =
+                    `${data.crop} Price Prediction`;
+
+
+                document.getElementById(
+                    "currentPrice"
+                ).textContent =
+                    formatRupees(
+                        data.current_price
+                    );
+
+
+                document.getElementById(
+                    "averagePrice"
+                ).textContent =
+                    formatRupees(
+                        data.average_price
+                    );
+
+
+                document.getElementById(
+                    "predictedPrice"
+                ).textContent =
+                    formatRupees(
+                        data.predicted_price
+                    );
+
+
+                // Confidence
+
+                document.getElementById(
+                    "confidence"
+                ).textContent =
+                    `${data.confidence} Confidence`;
+
+
+                // Trend
+
+                const trendElement =
+                    document.getElementById("trend");
+
+
+                trendElement.className =
+                    "trend";
+
+
+                if (data.trend === "Rising") {
+
+                    trendElement.classList.add(
+                        "trend-rising"
+                    );
+
+                    trendElement.textContent =
+                        `↗ Rising by ${data.trend_percentage}%`;
+
+                }
+
+                else if (
+                    data.trend === "Falling"
+                ) {
+
+                    trendElement.classList.add(
+                        "trend-falling"
+                    );
+
+                    trendElement.textContent =
+                        `↘ Falling by ${Math.abs(data.trend_percentage)}%`;
+
+                }
+
+                else {
+
+                    trendElement.classList.add(
+                        "trend-stable"
+                    );
+
+                    trendElement.textContent =
+                        `→ Stable (${data.trend_percentage}%)`;
+
+                }
+
+
+                // Backend message
+
+                if (data.message) {
+
+                    document.getElementById(
+                        "predictionMessage"
+                    ).textContent =
+                        data.message;
+
+                }
+
+
+                // Show result
+
+                result.style.display = "block";
+
+
+            }
+
+            catch (err) {
+
+
+                console.error(
+                    "Prediction error:",
+                    err
+                );
+
+
+                error.textContent =
+                    "⚠️ " + err.message +
+                    " Make sure the KisanSetu Flask backend is running.";
+
+
+                error.style.display = "block";
+
+
+            }
+
+            finally {
+
+                loading.style.display = "none";
+
+            }
+
+        }
+
+
+
+        // ==========================================
+        // AUTOMATIC FIRST PREDICTION
+        // ==========================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                getPrediction();
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

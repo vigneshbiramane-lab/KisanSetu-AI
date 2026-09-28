@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>KisanSetu AI - Best Market</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f7f4;
+
+            color: #1f2937;
+
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+
+            background: white;
+
+            height: 72px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+        }
+
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #166534;
+
+        }
+
+
+        nav {
+
+            display: flex;
+
+            gap: 30px;
+
+        }
+
+
+        nav a {
+
+            text-decoration: none;
+
+            color: #374151;
+
+            font-weight: 600;
+
+        }
+
+
+        nav a:hover {
+
+            color: #166534;
+
+        }
+
+
+        .profile-btn {
+
+            padding: 10px 20px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            background: white;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding: 40px 20px 70px;
+
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            padding: 9px 16px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        h1 {
+
+            font-size: 42px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .subtitle {
+
+            color: #64748b;
+
+            font-size: 17px;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        /* =========================
+           INPUT CARD
+        ========================= */
+
+        .input-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 32px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.05);
+
+        }
+
+
+        .input-card h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .input-description {
+
+            color: #64748b;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-weight: 700;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        select,
+        input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            background: white;
+
+        }
+
+
+        select:focus,
+        input:focus {
+
+            outline: none;
+
+            border-color: #16a34a;
+
+        }
+
+
+        .find-btn {
+
+            margin-top: 28px;
+
+            background: #166534;
+
+            color: white;
+
+            border: none;
+
+            padding: 15px 30px;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .find-btn:hover {
+
+            background: #14532d;
+
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        #loading {
+
+            display: none;
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #f0fdf4;
+
+            border-radius: 10px;
+
+            color: #166534;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================
+           RESULTS
+        ========================= */
+
+        #results {
+
+            display: none;
+
+            margin-top: 35px;
+
+        }
+
+
+        .result-header {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .result-header h2 {
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .result-header p {
+
+            color: #64748b;
+
+        }
+
+
+        /* =========================
+           SUMMARY
+        ========================= */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .summary-card {
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid #e5e7eb;
+
+        }
+
+
+        .summary-card span {
+
+            display: block;
+
+            color: #64748b;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .summary-card strong {
+
+            font-size: 25px;
+
+            color: #166534;
+
+        }
+
+
+        /* =========================
+           MARKET CARDS
+        ========================= */
+
+        #marketResults {
+
+            display: grid;
+
+            gap: 18px;
+
+        }
+
+
+        .market-result {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+        }
+
+
+        .market-result.best {
+
+            border:
+                2px solid #16a34a;
+
+            background: #f0fdf4;
+
+        }
+
+
+        .best-badge {
+
+            display: inline-block;
+
+            background: #16a34a;
+
+            color: white;
+
+            padding: 7px 12px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .market-result h3 {
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .market-location {
+
+            color: #64748b;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .price-large {
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            color: #166534;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .result-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 12px 0;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+        }
+
+
+        .result-row span {
+
+            color: #64748b;
+
+        }
+
+
+        .net-return {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 15px;
+
+            padding: 15px;
+
+            background: #dcfce7;
+
+            border-radius: 9px;
+
+        }
+
+
+        .net-return strong {
+
+            color: #166534;
+
+            font-size: 20px;
+
+        }
+
+
+        .market-select {
+
+            margin-top: 18px;
+
+            padding: 12px 20px;
+
+            background: #166534;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            background: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+            border-top:
+                1px solid #e5e7eb;
+
+            color: #64748b;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 800px) {
+
+            nav {
+
+                display: none;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .summary {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            h1 {
+
+                font-size: 32px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <header>
+
+        <div class="logo">
+
+            🌾 KisanSetu AI
+
+        </div>
+
+
+        <nav>
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="#">
+                Market
+            </a>
+
+            <a href="#">
+                Prediction
+            </a>
+
+            <a href="#">
+                Sell Produce
+            </a>
+
+        </nav>
+
+
+        <button class="profile-btn">
+
+            👤 Profile
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <div class="badge">
+
+            💰 SMART MARKET RECOMMENDATION
+
+        </div>
+
+
+        <h1>
+
+            Find Your Best Market
+
+        </h1>
+
+
+        <p class="subtitle">
+
+            Compare market prices and transportation costs
+            to find the market giving you the highest
+            estimated net return.
+
+        </p>
+
+
+
+        <!-- =========================
+             INPUT CARD
+        ========================= -->
+
+        <section class="input-card">
+
+
+            <h2>
+
+                Enter Your Produce Details
+
+            </h2>
+
+
+            <p class="input-description">
+
+                Enter your crop, quantity and current location.
+
+            </p>
+
+
+
+            <div class="form-grid">
+
+
+                <!-- CROP -->
+
+                <div class="form-group">
+
+                    <label for="crop">
+
+                        🌾 Crop
+
+                    </label>
+
+
+                    <select id="crop">
+
+                        <option value="onion">
+
+                            🧅 Onion
+
+                        </option>
+
+
+                        <option value="tomato">
+
+                            🍅 Tomato
+
+                        </option>
+
+
+                        <option value="potato">
+
+                            🥔 Potato
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- QUANTITY -->
+
+                <div class="form-group">
+
+                    <label for="quantity">
+
+                        ⚖️ Quantity (quintals)
+
+                    </label>
+
+
+                    <input
+
+                        type="number"
+
+                        id="quantity"
+
+                        value="50"
+
+                        min="1"
+
+                        placeholder="Enter quantity"
+
+                    >
+
+                </div>
+
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label for="location">
+
+                        📍 Your Location
+
+                    </label>
+
+
+                    <select id="location">
+
+                        <option value="Nashik">
+
+                            Nashik
+
+                        </option>
+
+
+                        <option value="Pune">
+
+                            Pune
+
+                        </option>
+
+
+                        <option value="Mumbai">
+
+                            Mumbai
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FIND BUTTON -->
+
+            <button
+                class="find-btn"
+                onclick="findBestMarket()"
+            >
+
+                🔍 Find Best Market
+
+            </button>
+
+
+
+            <!-- LOADING -->
+
+            <div id="loading">
+
+                ⏳ Getting latest market data
+                from KisanSetu backend...
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             RESULTS
+        ========================= -->
+
+        <section id="results">
+
+
+            <div class="result-header">
+
+                <h2>
+
+                    📊 Market Recommendation
+
+                </h2>
+
+
+                <p id="resultDescription">
+
+                </p>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <div class="summary">
+
+
+                <div class="summary-card">
+
+                    <span>
+                        🏆 Best Market
+                    </span>
+
+                    <strong id="bestMarketName">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        💰 Best Net Return
+                    </span>
+
+                    <strong id="bestNetReturn">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        📈 Advantage
+                    </span>
+
+                    <strong id="advantage">
+                        -
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- MARKET RESULTS -->
+
+            <div id="marketResults">
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <strong>
+
+            🌾 KisanSetu AI
+
+        </strong>
+
+        <br>
+
+        Smart technology for better
+        farmer market decisions.
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        // ==========================================
+        // BACKEND URL
+        // ==========================================
+
+        const BACKEND_URL =
+            "http://127.0.0.1:5000";
+
+
+
+        // ==========================================
+        // MARKET DATA
+        // ==========================================
+
+        let marketData = {};
+
+
+
+        // ==========================================
+        // LOAD DATA FROM PYTHON
+        // ==========================================
+
+        async function loadMarketData() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        BACKEND_URL +
+                        "/api/markets"
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Backend error"
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                marketData = {};
+
+
+                data.forEach(function(item) {
+
+                    const crop =
+                        item.crop.toLowerCase();
+
+
+                    if (!marketData[crop]) {
+
+                        marketData[crop] = {};
+
+                    }
+
+
+                    marketData[crop][item.market] =
+                        item.price;
+
+                });
+
+
+                console.log(
+                    "KisanSetu market data:",
+                    marketData
+                );
+
+
+                return true;
+
+            }
+
+            catch(error) {
+
+                console.error(
+                    "Backend connection error:",
+                    error
+                );
+
+
+                return false;
+
+            }
+
+        }
+
+
+
+        // ==========================================
+        // TRANSPORT DISTANCES
+        // ==========================================
+
+        const distances = {
+
+
+            Nashik: {
+
+                Nashik: 0,
+
+                Pune: 210,
+
+                Mumbai: 165
+
+            },
+
+
+            Pune: {
+
+                Nashik: 210,
+
+                Pune: 0,
+
+                Mumbai: 150
+
+            },
+
+
+            Mumbai: {
+
+                Nashik: 165,
+
+                Pune: 150,
+
+                Mumbai: 0
+
+            }
+
+        };
+
+
+
+        // ==========================================
+        // TRANSPORT COST
+        // ==========================================
+
+        function calculateTransport(
+            distance,
+            quantity
+        ) {
+
+            const baseCost = 500;
+
+
+            const distanceCost =
+                distance * 15;
+
+
+            const quantityCost =
+                quantity * 20;
+
+
+            return Math.round(
+
+                baseCost +
+                distanceCost +
+                quantityCost
+
+            );
+
+        }
+
+
+
+        // ==========================================
+        // FIND BEST MARKET
+        // ==========================================
+
+        async function findBestMarket() {
+
+
+            const crop =
+                document.getElementById(
+                    "crop"
+                ).value;
+
+
+            const quantity =
+                Number(
+                    document.getElementById(
+                        "quantity"
+                    ).value
+                );
+
+
+            const location =
+                document.getElementById(
+                    "location"
+                ).value;
+
+
+
+            // VALIDATION
+
+            if (!quantity || quantity <= 0) {
+
+                alert(
+                    "Please enter a valid quantity."
+                );
+
+                return;
+
+            }
+
+
+
+            // SHOW LOADING
+
+            document.getElementById(
+                "loading"
+            ).style.display = "block";
+
+
+
+            // LOAD BACKEND DATA
+
+            const connected =
+                await loadMarketData();
+
+
+
+            document.getElementById(
+                "loading"
+            ).style.display = "none";
+
+
+
+            // CHECK BACKEND
+
+            if (!connected) {
+
+                alert(
+
+                    "❌ Cannot connect to KisanSetu backend.\n\n" +
+
+                    "Please make sure this is running in PowerShell:\n\n" +
+
+                    "python app.py"
+
+                );
+
+                return;
+
+            }
+
+
+
+            // CHECK CROP
+
+            if (!marketData[crop]) {
+
+                alert(
+
+                    "Market data for " +
+                    crop +
+                    " is not available."
+
+                );
+
+                return;
+
+            }
+
+
+
+            const prices =
+                marketData[crop];
+
+
+
+            const markets = [
+
+                "Nashik",
+
+                "Pune",
+
+                "Mumbai"
+
+            ];
+
+
+
+            let results = [];
+
+
+
+            // CALCULATE MARKETS
+
+            markets.forEach(function(market) {
+
+
+                const price =
+                    prices[market];
+
+
+                if (price === undefined) {
+
+                    return;
+
+                }
+
+
+                const distance =
+                    distances[location][market];
+
+
+                const revenue =
+                    price * quantity;
+
+
+                const transport =
+                    calculateTransport(
+                        distance,
+                        quantity
+                    );
+
+
+                const netReturn =
+                    revenue - transport;
+
+
+
+                results.push({
+
+                    market: market,
+
+                    price: price,
+
+                    distance: distance,
+
+                    revenue: revenue,
+
+                    transport: transport,
+
+                    netReturn: netReturn
+
+                });
+
+            });
+
+
+
+            // SORT
+
+            results.sort(function(a, b) {
+
+                return b.netReturn -
+                    a.netReturn;
+
+            });
+
+
+
+            if (results.length === 0) {
+
+                alert(
+                    "No market data available."
+                );
+
+                return;
+
+            }
+
+
+
+            // BEST MARKET
+
+            const best =
+                results[0];
+
+
+            const second =
+                results[1];
+
+
+            const advantage =
+                second
+
+                ?
+
+                best.netReturn -
+                second.netReturn
+
+                :
+
+                0;
+
+
+
+            // SHOW RESULTS
+
+            document.getElementById(
+                "results"
+            ).style.display = "block";
+
+
+
+            document.getElementById(
+                "resultDescription"
+            ).innerText =
+
+                "For " +
+                quantity +
+                " quintals of " +
+                crop +
+                " from " +
+                location +
+                ", markets are ranked using market price and estimated transportation cost.";
+
+
+
+            document.getElementById(
+                "bestMarketName"
+            ).innerText =
+                best.market;
+
+
+            document.getElementById(
+                "bestNetReturn"
+            ).innerText =
+
+                "₹" +
+                best.netReturn.toLocaleString(
+                    "en-IN"
+                );
+
+
+            document.getElementById(
+                "advantage"
+            ).innerText =
+
+                "₹" +
+                advantage.toLocaleString(
+                    "en-IN"
+                );
+
+
+
+            // CLEAR OLD RESULTS
+
+            const container =
+                document.getElementById(
+                    "marketResults"
+                );
+
+
+            container.innerHTML = "";
+
+
+
+            // CREATE MARKET CARDS
+
+            results.forEach(
+                function(result, index) {
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "market-result";
+
+
+                    if (index === 0) {
+
+                        card.classList.add(
+                            "best"
+                        );
+
+                    }
+
+
+
+                    card.innerHTML = `
+
+
+                        ${
+                            index === 0
+
+                            ?
+
+                            `
+                            <span class="best-badge">
+
+                                🥇 BEST NET RETURN
+
+                            </span>
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+                        <h3>
+
+                            📍 ${result.market} Market
+
+                        </h3>
+
+
+                        <p class="market-location">
+
+                            Distance from ${location}:
+
+                            ${result.distance} km
+
+                        </p>
+
+
+                        <div class="price-large">
+
+                            ₹${result.price.toLocaleString("en-IN")}
+
+                            / quintal
+
+                        </div>
+
+
+                        <div class="result-row">
+
+                            <span>
+
+                                Selling Revenue
+
+                            </span>
+
+
+                            <strong>
+
+                                ₹${result.revenue.toLocaleString("en-IN")}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="result-row">
+
+                            <span>
+
+                                Transport Cost
+
+                            </span>
+
+
+                            <strong>
+
+                                − ₹${result.transport.toLocaleString("en-IN")}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="net-return">
+
+                            <span>
+
+                                Net Return
+
+                            </span>
+
+
+                            <strong>
+
+                                ₹${result.netReturn.toLocaleString("en-IN")}
+
+                            </strong>
+
+                        </div>
+
+
+                        ${
+                            index === 0
+
+                            ?
+
+                            `
+                            <button
+                                class="market-select"
+                                onclick="selectMarket('${result.market}')"
+                            >
+
+                                Select This Market →
+
+                            </button>
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+
+            );
+
+
+
+            // SCROLL TO RESULTS
+
+            document.getElementById(
+                "results"
+            ).scrollIntoView({
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+
+
+        // ==========================================
+        // SELECT MARKET
+        // ==========================================
+
+        function selectMarket(market) {
+
+            alert(
+
+                "✅ " +
+                market +
+                " Market selected!\n\n" +
+
+                "Next stage: connect this market " +
+                "selection to the farmer selling and buyer system."
+
+            );
+
+        }
+
+
+
+        // ==========================================
+        // TEST BACKEND ON PAGE LOAD
+        // ==========================================
+
+        loadMarketData();
+
+
+    </script>
+
+
+</body>
+
+</html>

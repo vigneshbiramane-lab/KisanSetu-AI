@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KisanSetu AI - Sell Produce</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f8f5;
+            color: #1d2b3a;
+        }
+
+        /* ==============================
+           NAVBAR
+        ============================== */
+
+        .navbar {
+            height: 75px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #087f45;
+        }
+
+        .back-btn {
+            border: 1px solid #ddd;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .back-btn:hover {
+            background: #f1f7f2;
+        }
+
+
+        /* ==============================
+           MAIN
+        ============================== */
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-title span {
+            color: #087f45;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .page-title h1 {
+            font-size: 38px;
+            margin-top: 10px;
+        }
+
+        .page-title p {
+            color: #667085;
+            margin-top: 10px;
+            font-size: 17px;
+        }
+
+
+        /* ==============================
+           FORM
+        ============================== */
+
+        .form-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+        }
+
+
+        .form-title {
+            font-size: 23px;
+            margin-bottom: 25px;
+        }
+
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+
+        .field label {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d7dce0;
+            border-radius: 9px;
+            font-size: 16px;
+            background: white;
+        }
+
+
+        .field input:focus,
+        .field select:focus {
+            outline: none;
+            border-color: #087f45;
+        }
+
+
+        /* ==============================
+           TOTAL VALUE
+        ============================== */
+
+        .total-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #eef8f1;
+            border: 1px solid #c7e5cf;
+        }
+
+
+        .total-box span {
+            color: #667085;
+            display: block;
+            margin-bottom: 7px;
+        }
+
+
+        .total-box strong {
+            font-size: 28px;
+            color: #087f45;
+        }
+
+
+        /* ==============================
+           BUTTON
+        ============================== */
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #087f45;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        .submit-btn:hover {
+            background: #066b3a;
+        }
+
+
+        .submit-btn:disabled {
+            background: #9aa6a0;
+            cursor: not-allowed;
+        }
+
+
+        /* ==============================
+           MESSAGE
+        ============================== */
+
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+
+        .success {
+            background: #e8f7ed;
+            color: #087f45;
+            border: 1px solid #b9dfc5;
+        }
+
+
+        .error {
+            background: #fff0f0;
+            color: #b42318;
+            border: 1px solid #f1b5b5;
+        }
+
+
+        /* ==============================
+           LISTING RESULT
+        ============================== */
+
+        .listing-result {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 14px;
+            background: #fafcfb;
+            border: 1px solid #e0e7e2;
+        }
+
+
+        .listing-result h3 {
+            color: #087f45;
+            margin-bottom: 15px;
+        }
+
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 9px 0;
+            border-bottom: 1px solid #edf0ee;
+        }
+
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+
+        .status {
+            color: #087f45;
+            font-weight: bold;
+        }
+
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .page-title h1 {
+                font-size: 30px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         NAVBAR
+    ============================== -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🌾 KisanSetu AI
+        </div>
+
+
+        <button
+            class="back-btn"
+            onclick="goHome()"
+        >
+
+            ← Back to Dashboard
+
+        </button>
+
+    </header>
+
+
+
+    <!-- ==============================
+         MAIN
+    ============================== -->
+
+    <main class="container">
+
+
+        <!-- TITLE -->
+
+        <div class="page-title">
+
+            <span>
+                FARMER MARKETPLACE
+            </span>
+
+
+            <h1>
+                🌾 Sell Your Produce
+            </h1>
+
+
+            <p>
+                List your produce and connect with potential buyers.
+            </p>
+
+        </div>
+
+
+
+        <!-- FORM CARD -->
+
+        <section class="form-card">
+
+
+            <h2 class="form-title">
+                Create Produce Listing
+            </h2>
+
+
+
+            <form
+                id="listingForm"
+                onsubmit="createListing(event)"
+            >
+
+
+                <div class="form-grid">
+
+
+                    <!-- CROP -->
+
+                    <div class="field">
+
+                        <label for="crop">
+                            Select Crop
+                        </label>
+
+
+                        <select
+                            id="crop"
+                            required
+                        >
+
+                            <option value="">
+                                Select crop
+                            </option>
+
+                            <option value="Onion">
+                                🧅 Onion
+                            </option>
+
+                            <option value="Tomato">
+                                🍅 Tomato
+                            </option>
+
+                            <option value="Potato">
+                                🥔 Potato
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="field">
+
+                        <label for="quantity">
+                            Quantity (Quintals)
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            min="1"
+                            step="0.01"
+                            placeholder="Example: 50"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- EXPECTED PRICE -->
+
+                    <div class="field">
+
+                        <label for="expectedPrice">
+                            Expected Price (₹ / Quintal)
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="expectedPrice"
+                            min="1"
+                            step="0.01"
+                            placeholder="Example: 2500"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- LOCATION -->
+
+                    <div class="field">
+
+                        <label for="location">
+                            Your Location
+                        </label>
+
+
+                        <select
+                            id="location"
+                            required
+                        >
+
+                            <option value="">
+                                Select location
+                            </option>
+
+                            <option value="Nashik">
+                                Nashik
+                            </option>
+
+                            <option value="Pune">
+                                Pune
+                            </option>
+
+                            <option value="Mumbai">
+                                Mumbai
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- CONTACT -->
+
+                    <div class="field full">
+
+                        <label for="contact">
+                            Contact Number
+                        </label>
+
+
+                        <input
+                            type="tel"
+                            id="contact"
+                            placeholder="Enter contact number"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- TOTAL VALUE -->
+
+                <div class="total-box">
+
+                    <span>
+                        Expected Total Value
+                    </span>
+
+
+                    <strong id="totalValue">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+
+                    🌾 Create Produce Listing
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+
+            <!-- LISTING RESULT -->
+
+            <div
+                id="listingResult"
+                class="listing-result"
+            >
+
+                <h3>
+                    ✅ Listing Created Successfully
+                </h3>
+
+
+                <div class="result-row">
+
+                    <span>
+                        Listing ID
+                    </span>
+
+                    <strong id="resultId">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-row">
+
+                    <span>
+                        Crop
+                    </span>
+
+                    <strong id="resultCrop">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-row">
+
+                    <span>
+                        Quantity
+                    </span>
+
+                    <strong id="resultQuantity">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-row">
+
+                    <span>
+                        Expected Price
+                    </span>
+
+                    <strong id="resultPrice">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-row">
+
+                    <span>
+                        Location
+                    </span>
+
+                    <strong id="resultLocation">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-row">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong
+                        id="resultStatus"
+                        class="status"
+                    >
+                        Available
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==============================
+         JAVASCRIPT
+    ============================== -->
+
+    <script>
+
+        const API_URL =
+            "http://127.0.0.1:5000";
+
+
+        // ==========================================
+        // GO HOME
+        // ==========================================
+
+        function goHome() {
+
+            window.location.href =
+                "../index.html";
+
+        }
+
+
+
+        // ==========================================
+        // FORMAT RUPEES
+        // ==========================================
+
+        function formatRupees(value) {
+
+            return "₹" +
+                Number(value).toLocaleString("en-IN");
+
+        }
+
+
+
+        // ==========================================
+        // CALCULATE TOTAL VALUE
+        // ==========================================
+
+        function calculateTotal() {
+
+            const quantity =
+                Number(
+                    document.getElementById("quantity").value
+                );
+
+
+            const price =
+                Number(
+                    document.getElementById("expectedPrice").value
+                );
+
+
+            const total =
+                quantity * price;
+
+
+            document.getElementById(
+                "totalValue"
+            ).textContent =
+                formatRupees(
+                    total || 0
+                );
+
+        }
+
+
+
+        // ==========================================
+        // LISTEN FOR PRICE / QUANTITY CHANGES
+        // ==========================================
+
+        document.getElementById(
+            "quantity"
+        ).addEventListener(
+            "input",
+            calculateTotal
+        );
+
+
+        document.getElementById(
+            "expectedPrice"
+        ).addEventListener(
+            "input",
+            calculateTotal
+        );
+
+
+
+        // ==========================================
+        // CREATE LISTING
+        // ==========================================
+
+        async function createListing(event) {
+
+            event.preventDefault();
+
+
+            const crop =
+                document.getElementById(
+                    "crop"
+                ).value;
+
+
+            const quantity =
+                Number(
+                    document.getElementById(
+                        "quantity"
+                    ).value
+                );
+
+
+            const expectedPrice =
+                Number(
+                    document.getElementById(
+                        "expectedPrice"
+                    ).value
+                );
+
+
+            const location =
+                document.getElementById(
+                    "location"
+                ).value;
+
+
+            const contact =
+                document.getElementById(
+                    "contact"
+                ).value.trim();
+
+
+            const submitBtn =
+                document.getElementById(
+                    "submitBtn"
+                );
+
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            const listingResult =
+                document.getElementById(
+                    "listingResult"
+                );
+
+
+            // Validate
+
+            if (
+                !crop ||
+                quantity <= 0 ||
+                expectedPrice <= 0 ||
+                !location ||
+                !contact
+            ) {
+
+                showMessage(
+                    "Please fill all fields correctly.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            // Disable button
+
+            submitBtn.disabled = true;
+
+            submitBtn.textContent =
+                "⏳ Creating Listing...";
+
+
+            message.style.display =
+                "none";
+
+
+            try {
+
+
+                // ==================================
+                // SEND DATA TO FLASK BACKEND
+                // ==================================
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/listings`,
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                crop: crop,
+
+                                quantity: quantity,
+
+                                expected_price:
+                                    expectedPrice,
+
+                                location: location,
+
+                                contact: contact
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Listing response:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to create listing."
+                    );
+
+                }
+
+
+                // ==================================
+                // SUCCESS
+                // ==================================
+
+                showMessage(
+                    "✅ Produce listing created successfully!",
+                    "success"
+                );
+
+
+                document.getElementById(
+                    "resultId"
+                ).textContent =
+                    data.listing_id;
+
+
+                document.getElementById(
+                    "resultCrop"
+                ).textContent =
+                    data.listing.crop;
+
+
+                document.getElementById(
+                    "resultQuantity"
+                ).textContent =
+                    data.listing.quantity +
+                    " quintals";
+
+
+                document.getElementById(
+                    "resultPrice"
+                ).textContent =
+                    formatRupees(
+                        data.listing.expected_price
+                    ) +
+                    " / quintal";
+
+
+                document.getElementById(
+                    "resultLocation"
+                ).textContent =
+                    data.listing.location;
+
+
+                document.getElementById(
+                    "resultStatus"
+                ).textContent =
+                    data.listing.status;
+
+
+                listingResult.style.display =
+                    "block";
+
+
+                // Reset form
+
+                document.getElementById(
+                    "listingForm"
+                ).reset();
+
+
+                calculateTotal();
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Listing error:",
+                    error
+                );
+
+
+                showMessage(
+                    "⚠️ " +
+                    error.message +
+                    " Make sure the Flask backend is running.",
+                    "error"
+                );
+
+            }
+
+
+            finally {
+
+                submitBtn.disabled = false;
+
+                submitBtn.textContent =
+                    "🌾 Create Produce Listing";
+
+            }
+
+        }
+
+
+
+        // ==========================================
+        // SHOW MESSAGE
+        // ==========================================
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            message.textContent =
+                text;
+
+
+            message.className =
+                "message " +
+                type;
+
+
+            message.style.display =
+                "block";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

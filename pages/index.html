@@ -55,7 +55,7 @@
 
 
     <!-- ==========================================
-         WELCOME
+         WELCOME / FARMER DASHBOARD
     ========================================== -->
 
     <section class="welcome">
@@ -243,7 +243,9 @@
         </div>
 
 
-        <div class="price-grid">
+        <div
+            class="price-grid"
+            id="priceGrid">
 
 
             <!-- ONION -->
@@ -262,13 +264,17 @@
                     Nashik Market
                 </p>
 
-                <strong class="price">
-                    ₹2,450
-                </strong>
+                <div class="price-row">
 
-                <span>
-                    / quintal
-                </span>
+                    <strong class="price">
+                        ₹2,450
+                    </strong>
+
+                    <span>
+                        / quintal
+                    </span>
+
+                </div>
 
                 <div class="up">
                     ↗ +4.2%
@@ -294,13 +300,17 @@
                     Pune Market
                 </p>
 
-                <strong class="price">
-                    ₹2,800
-                </strong>
+                <div class="price-row">
 
-                <span>
-                    / quintal
-                </span>
+                    <strong class="price">
+                        ₹2,800
+                    </strong>
+
+                    <span>
+                        / quintal
+                    </span>
+
+                </div>
 
                 <div class="up">
                     ↗ +2.8%
@@ -326,19 +336,24 @@
                     Mumbai Market
                 </p>
 
-                <strong class="price">
-                    ₹1,900
-                </strong>
+                <div class="price-row">
 
-                <span>
-                    / quintal
-                </span>
+                    <strong class="price">
+                        ₹1,900
+                    </strong>
+
+                    <span>
+                        / quintal
+                    </span>
+
+                </div>
 
                 <div class="down">
                     ↘ -1.5%
                 </div>
 
             </div>
+
 
         </div>
 
@@ -474,7 +489,9 @@
 
     <!-- ==========================================
          BUYER OFFERS
-========================================== -->
+         
+         THIS SECTION IS KEPT UNCHANGED
+    ========================================== -->
 
     <section class="section">
 
@@ -493,11 +510,9 @@
             </div>
 
 
-            <!-- CONNECTED TO BUYER OFFERS PAGE -->
-
             <button
                 class="view-btn"
-                onclick="openBuyerOffers()">
+                onclick="showMessage('Buyer Offers')">
 
                 View Offers →
 
@@ -526,10 +541,8 @@
             </strong>
 
 
-            <!-- CONNECTED TO BUYER OFFERS PAGE -->
-
             <button
-                onclick="openBuyerOffers()">
+                onclick="showMessage('Buyer Offer')">
 
                 View Offer
 

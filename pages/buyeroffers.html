@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Buyer Offers - KisanSetu AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f8f4;
+            color: #1f2937;
+        }
+
+
+        /* ==========================================
+           HEADER
+        ========================================== */
+
+        header {
+            background: #146b1f;
+            color: white;
+            height: 102px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: white;
+            color: #146b1f;
+
+            border: none;
+            border-radius: 10px;
+
+            padding: 12px 22px;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: #eaf5ea;
+        }
+
+
+        /* ==========================================
+           PAGE TITLE
+        ========================================== */
+
+        .page-title {
+            text-align: center;
+            margin-top: 52px;
+        }
+
+        .page-title h1 {
+            margin: 0;
+
+            color: #176b24;
+
+            font-size: 38px;
+        }
+
+        .page-title p {
+            margin-top: 12px;
+
+            color: #667085;
+
+            font-size: 17px;
+        }
+
+
+        /* ==========================================
+           FILTER
+        ========================================== */
+
+        .filter-box {
+            width: 78%;
+
+            margin: 40px auto 35px;
+
+            background: white;
+
+            padding: 22px 28px;
+
+            border-radius: 14px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+
+            display: flex;
+            align-items: center;
+
+            gap: 16px;
+        }
+
+        .filter-box label {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .filter-box select {
+            padding: 10px 18px;
+
+            min-width: 180px;
+
+            border: 1px solid #d0d5dd;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+
+        /* ==========================================
+           LISTINGS
+        ========================================== */
+
+        #listingsContainer {
+            width: 78%;
+
+            margin: 0 auto 50px;
+        }
+
+        .listing-card {
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 28px;
+
+            margin-bottom: 25px;
+
+            border-top: 5px solid #2d8735;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .listing-card h2 {
+            margin-top: 0;
+
+            color: #176b24;
+
+            font-size: 26px;
+        }
+
+        .status {
+            display: inline-block;
+
+            background: #e1f5e7;
+
+            color: #16713b;
+
+            padding: 9px 18px;
+
+            border-radius: 25px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        .listing-info {
+            line-height: 2;
+
+            font-size: 16px;
+        }
+
+        .listing-info strong {
+            color: #202124;
+        }
+
+        .expected-price {
+            color: #198754;
+
+            font-size: 23px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================================
+           OFFER BUTTON
+        ========================================== */
+
+        .offer-btn {
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            background: #2d8735;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .offer-btn:hover {
+            background: #216b29;
+        }
+
+
+        /* ==========================================
+           LOADING / ERROR
+        ========================================== */
+
+        .message {
+            text-align: center;
+
+            padding: 40px;
+
+            color: #667085;
+
+            font-size: 17px;
+        }
+
+
+        /* ==========================================
+           MODAL
+        ========================================== */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+
+            z-index: 1000;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+
+            width: 90%;
+            max-width: 520px;
+
+            padding: 28px;
+
+            border-radius: 15px;
+
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+
+            right: 20px;
+            top: 15px;
+
+            font-size: 27px;
+
+            color: #777;
+
+            cursor: pointer;
+        }
+
+        .modal-content h2 {
+            color: #176b24;
+
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            color: #444;
+        }
+
+        .modal-content label {
+            display: block;
+
+            margin-top: 20px;
+            margin-bottom: 7px;
+
+            font-weight: bold;
+        }
+
+        .modal-content input {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #d0d5dd;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+        }
+
+        .send-btn {
+            width: 100%;
+
+            margin-top: 22px;
+
+            padding: 14px;
+
+            background: #2d8735;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .send-btn:hover {
+            background: #216b29;
+        }
+
+
+        /* ==========================================
+           SUCCESS MESSAGE
+        ========================================== */
+
+        .success {
+            margin-top: 18px;
+
+            padding: 15px;
+
+            background: #e3f5e8;
+
+            border-left: 5px solid #2d8735;
+
+            border-radius: 8px;
+
+            color: #176b24;
+        }
+
+        .error {
+            margin-top: 18px;
+
+            padding: 15px;
+
+            background: #fde8e8;
+
+            border-left: 5px solid #d93025;
+
+            border-radius: 8px;
+
+            color: #a61b1b;
+        }
+
+
+        /* ==========================================
+           FOOTER
+        ========================================== */
+
+        footer {
+            background: #146b1f;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 28px;
+
+            margin-top: 50px;
+        }
+
+        footer strong {
+            font-size: 20px;
+        }
+
+        footer p {
+            margin-bottom: 0;
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 800px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .filter-box,
+            #listingsContainer {
+                width: 92%;
+            }
+
+            .page-title h1 {
+                font-size: 30px;
+            }
+
+            .filter-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     HEADER
+========================================== -->
+
+<header>
+
+    <div class="logo">
+        🌾 KisanSetu AI
+    </div>
+
+    <button
+        class="back-btn"
+        onclick="goHome()">
+
+        ← Back to Home
+
+    </button>
+
+</header>
+
+
+
+<!-- ==========================================
+     TITLE
+========================================== -->
+
+<section class="page-title">
+
+    <h1>
+        🤝 Buyer Offers
+    </h1>
+
+    <p>
+        Browse farmer produce and make your best offer
+    </p>
+
+</section>
+
+
+
+<!-- ==========================================
+     FILTER
+========================================== -->
+
+<div class="filter-box">
+
+    <label for="cropFilter">
+        🌾 Filter by Crop:
+    </label>
+
+    <select
+        id="cropFilter"
+        onchange="filterListings()">
+
+        <option value="All">
+            All Crops
+        </option>
+
+        <option value="Onion">
+            Onion
+        </option>
+
+        <option value="Tomato">
+            Tomato
+        </option>
+
+        <option value="Potato">
+            Potato
+        </option>
+
+    </select>
+
+</div>
+
+
+
+<!-- ==========================================
+     LISTINGS
+========================================== -->
+
+<div id="listingsContainer">
+
+    <div class="message">
+
+        ⏳ Loading farmer produce...
+
+    </div>
+
+</div>
+
+
+
+<!-- ==========================================
+     OFFER MODAL
+========================================== -->
+
+<div
+    id="offerModal"
+    class="modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close-btn"
+            onclick="closeModal()">
+
+            ×
+
+        </span>
+
+
+        <h2>
+            🤝 Make an Offer
+        </h2>
+
+
+        <p id="offerDetails">
+            You are making an offer.
+        </p>
+
+
+        <label for="buyerName">
+            Your Name
+        </label>
+
+        <input
+            type="text"
+            id="buyerName"
+            placeholder="Enter your name">
+
+
+        <label for="offerPrice">
+            Offer Price (₹ per quintal)
+        </label>
+
+        <input
+            type="number"
+            id="offerPrice"
+            placeholder="Example: 2500"
+            min="1">
+
+
+        <button
+            class="send-btn"
+            onclick="sendOffer()">
+
+            📩 Send Offer
+
+        </button>
+
+
+        <div id="offerMessage"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
+
+<footer>
+
+    <strong>
+        🌾 KisanSetu AI
+    </strong>
+
+    <p>
+        Direct farmer-to-buyer market connection
+    </p>
+
+</footer>
+
+
+
+<script>
+
+    /* ==========================================
+       BACKEND
+    ========================================== */
+
+    const API_URL = "http://127.0.0.1:5000";
+
+
+    let allListings = [];
+
+    let selectedListingId = null;
+
+    let selectedListing = null;
+
+
+
+    /* ==========================================
+       HOME
+    ========================================== */
+
+    function goHome() {
+
+        window.location.href = "../index.html";
+
+    }
+
+
+
+    /* ==========================================
+       LOAD LISTINGS
+    ========================================== */
+
+    async function loadListings() {
+
+        const container =
+            document.getElementById("listingsContainer");
+
+
+        container.innerHTML = `
+
+            <div class="message">
+
+                ⏳ Loading farmer produce...
+
+            </div>
+
+        `;
+
+
+        try {
+
+            const response = await fetch(
+                `${API_URL}/api/listings`
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Backend request failed"
+                );
+
+            }
+
+
+            const data = await response.json();
+
+
+            console.log(
+                "Listings received:",
+                data
+            );
+
+
+            /*
+             IMPORTANT:
+
+             Backend returns:
+
+             {
+                 "listings": [...]
+             }
+
+             Therefore we must use:
+
+             data.listings
+            */
+
+            if (
+                !data ||
+                !Array.isArray(data.listings)
+            ) {
+
+                throw new Error(
+                    "Invalid listings response"
+                );
+
+            }
+
+
+            allListings = data.listings;
+
+
+            displayListings(allListings);
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Listings error:",
+                error
+            );
+
+
+            container.innerHTML = `
+
+                <div class="message">
+
+                    ⚠️ Unable to connect to
+                    KisanSetu backend.
+
+                    <br><br>
+
+                    Make sure Flask server is running.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       DISPLAY LISTINGS
+    ========================================== */
+
+    function displayListings(listings) {
+
+        const container =
+            document.getElementById("listingsContainer");
+
+
+        if (!listings || listings.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="message">
+
+                    📭 No farmer produce available.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        let html = "";
+
+
+        listings.forEach(function(listing) {
+
+
+            const quantity =
+                Number(listing.quantity);
+
+
+            const price =
+                Number(listing.expected_price);
+
+
+            const totalValue =
+                quantity * price;
+
+
+            html += `
+
+                <div class="listing-card">
+
+                    <h2>
+                        🌾 ${listing.crop}
+                    </h2>
+
+
+                    <span class="status">
+
+                        🟢 ${listing.status || "Available"}
+
+                    </span>
+
+
+                    <div class="listing-info">
+
+                        📦
+                        <strong>Quantity:</strong>
+                        ${quantity.toLocaleString("en-IN")}
+                        quintals
+
+                        <br>
+
+
+                        💰
+                        <strong>Expected Price:</strong>
+
+                        <span class="expected-price">
+
+                            ₹${price.toLocaleString("en-IN")}
+                            / quintal
+
+                        </span>
+
+                        <br>
+
+
+                        📍
+                        <strong>Location:</strong>
+                        ${listing.location}
+
+                        <br>
+
+
+                        💵
+                        <strong>Total Value:</strong>
+                        ₹${totalValue.toLocaleString("en-IN")}
+
+                    </div>
+
+
+                    <button
+                        class="offer-btn"
+                        onclick="openOfferModal(${listing.id})">
+
+                        🤝 Make an Offer
+
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+
+        container.innerHTML = html;
+
+    }
+
+
+
+    /* ==========================================
+       FILTER
+    ========================================== */
+
+    function filterListings() {
+
+        const selectedCrop =
+            document.getElementById("cropFilter").value;
+
+
+        if (selectedCrop === "All") {
+
+            displayListings(allListings);
+
+            return;
+
+        }
+
+
+        const filtered =
+            allListings.filter(function(listing) {
+
+                return listing.crop.toLowerCase() ===
+                    selectedCrop.toLowerCase();
+
+            });
+
+
+        displayListings(filtered);
+
+    }
+
+
+
+    /* ==========================================
+       OPEN OFFER MODAL
+    ========================================== */
+
+    function openOfferModal(listingId) {
+
+        selectedListingId = listingId;
+
+
+        selectedListing =
+            allListings.find(function(listing) {
+
+                return Number(listing.id) ===
+                    Number(listingId);
+
+            });
+
+
+        if (!selectedListing) {
+
+            alert(
+                "Unable to find this listing."
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById("offerDetails")
+            .innerHTML = `
+
+                You are making an offer for
+
+                <strong>
+                    ${selectedListing.crop}
+                </strong>
+
+                <br>
+
+                Farmer's expected price:
+
+                <strong>
+                    ₹${Number(
+                        selectedListing.expected_price
+                    ).toLocaleString("en-IN")}
+                    / quintal
+                </strong>
+
+            `;
+
+
+        document.getElementById("buyerName").value = "";
+
+        document.getElementById("offerPrice").value = "";
+
+        document.getElementById("offerMessage").innerHTML = "";
+
+
+        document.getElementById("offerModal").style.display =
+            "flex";
+
+    }
+
+
+
+    /* ==========================================
+       CLOSE MODAL
+    ========================================== */
+
+    function closeModal() {
+
+        document.getElementById("offerModal").style.display =
+            "none";
+
+    }
+
+
+
+    /* ==========================================
+       SEND OFFER
+    ========================================== */
+
+    async function sendOffer() {
+
+        const buyerName =
+            document.getElementById("buyerName")
+                .value
+                .trim();
+
+
+        const offerPrice =
+            Number(
+                document.getElementById("offerPrice")
+                    .value
+            );
+
+
+        const messageBox =
+            document.getElementById("offerMessage");
+
+
+        messageBox.innerHTML = "";
+
+
+        if (!buyerName) {
+
+            messageBox.innerHTML = `
+
+                <div class="error">
+
+                    ⚠️ Please enter your name.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        if (!offerPrice || offerPrice <= 0) {
+
+            messageBox.innerHTML = `
+
+                <div class="error">
+
+                    ⚠️ Please enter a valid offer price.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        if (!selectedListingId) {
+
+            messageBox.innerHTML = `
+
+                <div class="error">
+
+                    ⚠️ No listing selected.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        try {
+
+            const response = await fetch(
+                `${API_URL}/api/offers`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        listing_id:
+                            selectedListingId,
+
+                        buyer_name:
+                            buyerName,
+
+                        offer_price:
+                            offerPrice
+
+                    })
+
+                }
+            );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Offer response:",
+                data
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    data.error ||
+                    "Unable to send offer"
+                );
+
+            }
+
+
+            messageBox.innerHTML = `
+
+                <div class="success">
+
+                    ✅ <strong>
+                        Offer sent successfully!
+                    </strong>
+
+                    <br><br>
+
+                    Offer ID:
+                    ${data.offer_id || "Created"}
+
+                    <br>
+
+                    Status:
+                    ${data.status || "Pending"}
+
+                </div>
+
+            `;
+
+
+            /*
+             Keep the success message visible
+             for a moment, then close modal.
+            */
+
+            setTimeout(function() {
+
+                closeModal();
+
+            }, 1800);
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Offer error:",
+                error
+            );
+
+
+            messageBox.innerHTML = `
+
+                <div class="error">
+
+                    ❌ ${error.message}
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+    ========================================== */
+
+    window.onclick = function(event) {
+
+        const modal =
+            document.getElementById("offerModal");
+
+
+        if (event.target === modal) {
+
+            closeModal();
+
+        }
+
+    };
+
+
+
+    /* ==========================================
+       START
+    ========================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            loadListings();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
